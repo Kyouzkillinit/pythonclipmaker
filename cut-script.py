@@ -3,14 +3,24 @@ from moviepy.editor import VideoFileClip
 
 filename = fd.askopenfilename()
 
-starttime = input("enter start-time (in seconds): ")
+while True:
+  try:
+    starttime = int(input("Enter start-time (in seconds): "))
+    break
+  except ValueError:
+      print("Please input integer only...")  
+      continue
 
-endtime = input("enter end-time (in seconds): ")
+while True:
+  try:
+    endtime = int(input("Enter end-time (in seconds): "))
+    break
+  except ValueError:
+      print("Please input integer only...")  
+      continue
 
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
-ffmpeg_extract_subclip((filename), 14, 27, targetname="cut.mp4")
-
-# 14 is supposed to be (starttime) and 27 is supposed to be (endtime) but i cant seem to get it to work without errors, can anyone else fix this?
+ffmpeg_extract_subclip((filename), (starttime), (endtime), targetname="cut.mp4")
 
 videoclip = VideoFileClip("cut.mp4")
 new_clip = videoclip.without_audio()
