@@ -3,7 +3,7 @@ import time
 from tkinter import filedialog as fd
 from moviepy.editor import AudioFileClip
 
-print("select video file")
+print("select video file: ")
 filename = fd.askopenfilename()
 
 while True:
@@ -22,7 +22,7 @@ while True:
       print("Please input integer only...")  
       continue
 
-print("selct audio file")
+print("selct audio file: ")
 music = fd.askopenfilename()
 audio = AudioFileClip(music)
 
