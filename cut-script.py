@@ -47,7 +47,7 @@ print(str(auddur))
 #Resizing
 clip_resized = clip.resize((400, 200))
 
-#Code that doesn't work for looping
+#Code that does work for looping
 loopedClip = clip_resized.loop(n=numTimes)
 
 # Set the audio of the clip
