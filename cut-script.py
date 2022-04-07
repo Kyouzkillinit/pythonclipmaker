@@ -26,7 +26,7 @@ print("selct audio file")
 music = fd.askopenfilename()
 audio = AudioFileClip(music)
 
-outputFile = input("Name the output file")
+outputFile = input("Name the output file: ")
 
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 ffmpeg_extract_subclip((filename), (starttime), (endtime), targetname="cut.mp4")
@@ -47,7 +47,7 @@ print(str(auddur))
 #Resizing
 clip_resized = clip.resize((400, 200))
 
-#Code that does work for looping
+#Code that does! work for looping
 loopedClip = clip_resized.loop(n=numTimes)
 
 # Set the audio of the clip
