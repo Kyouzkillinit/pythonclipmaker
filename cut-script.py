@@ -23,7 +23,7 @@ while True:
     print("Please input integer only...")
     continue
 
-print("selct audio file")
+print("select audio file")
 music = fd.askopenfilename()
 audio = AudioFileClip(music)
 
