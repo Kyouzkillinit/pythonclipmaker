@@ -1,15 +1,20 @@
 from moviepy.editor import *
 import time
 from tkinter import filedialog as fd
+import tkinter as tk
+from tkinter import font
 from moviepy.editor import AudioFileClip
+import os
 
 print("select video file")
 filename = fd.askopenfilename()
 
+fontDir = "C:\Program Files\ImageMagick-7.1.0-Q16-HDRI"
+
 #bad loops
 while True:
   try:
-    starttime = int(input("Enter start-time (in seconds): "))
+    starttime = int(input("Enter start time (in seconds): "))
     break
   except ValueError:
     print("Please input integer only...")
@@ -17,15 +22,48 @@ while True:
 
 while True:
   try:
-    endtime = int(input("Enter end-time (in seconds): "))
+    endtime = int(input("Enter end time (in seconds): "))
     break
   except ValueError:
     print("Please input integer only...")
     continue
 
-print("select audio file")
+print("selct audio file")
 music = fd.askopenfilename()
 audio = AudioFileClip(music)
+
+#GUI
+window = tk.Tk()
+window.title("Test")
+window.configure(width = 900, height = 500)
+window.configure()
+
+testDisplay = tk.Label()
+testDisplay.pack()
+
+fonts = list(font.families())
+fonts.sort()
+
+defaultValue = tk.StringVar()
+defaultValue.set(fonts[5])
+
+def close():
+  window.destroy()
+
+label1 = tk.Label(text = "Select Font")
+label1.pack()
+
+dropDown = tk.OptionMenu(window, defaultValue, *fonts)
+dropDown.pack()
+
+getButton1 = tk.Button(text = "close", command = close)
+getButton1.pack()
+
+window.mainloop()
+
+theFont = defaultValue.get()
+theFont = theFont.replace(" ", "-")
+print(theFont)
 
 outputFile = input("Name the output file: ")
 textText = input("Add The title text: ")
@@ -42,7 +80,7 @@ new_clip.write_videofile("noaud_cut.mp4")
 auddur = int(audio.duration)
 
 #text setup and rendering text image
-txt = TextClip(txt=textText, fontsize=30, color="white", bg_color="black")
+txt = TextClip(txt = textText, color="white", bg_color="black", fontsize = 30, font = theFont)
 txt = txt.set_pos('center').set_duration(auddur)
 
 #math for number of times to loop video
@@ -63,3 +101,7 @@ loopedClip = CompositeVideoClip([loopedClip, txt])
 
 # Export the clip
 loopedClip.write_videofile(outputFile + ".mp4", fps=10)
+
+#delete temp files
+os.remove("cut.mp4")
+os.remove("noaud_cut.mp4")
